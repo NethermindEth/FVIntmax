@@ -30,3 +30,22 @@ def lookup_h [DecidableEq α] {a : α}
 end Lookup
 
 end Finmap
+
+namespace Intmax
+
+section RubeGoldberg
+
+/--
+This is _opaque_, we will reason by axioms.
+-/
+opaque ComputationallyInfeasible (p : Prop) : Prop := ¬p
+
+/--
+This is not provable because `ComputationallyInfeasible` is opaque; as such, it can NOT be unfolded.
+The point of this setup is to make sure that we can _not_ ever show `¬p → ComputationallyInfeasible p`.
+-/
+axiom comutationallyInfeasible_axiom : ∀ {p : Prop}, ComputationallyInfeasible p → ¬p 
+
+end RubeGoldberg
+
+end Intmax

@@ -15,7 +15,7 @@ variable {K V : Type}
 Definition 1
 
 TODO(REVIEW): I _think_ the `m` is to be understood as total with respect to `keys`.
-              As such, `total` establishes `k ∈ m`, which then gives `m.lookup k = some _`.
+              As such, `total` established `k ∈ m`, which then gives `m.lookup k = some _`.
 
 Feel free to ignore this bit:
               This lets us remove all the `Option`s without artifically returning a default element for keys not in the map.
@@ -165,7 +165,7 @@ def Merge (dict₁ dict₂ : Dict K V) : Dict K V :=
     m     := dict₁.m ∪ dict₂.m
     total := by cases dict₁; cases dict₂; aesop
   }
-
+  
 end Merge
 
 end Dict
