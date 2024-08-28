@@ -84,6 +84,9 @@ structure ADScheme (K : Type) [DecidableEq K]
 
   /--
   Definition 4 (2/2) - Correctness | Verify is consistent
+
+  NB the automation so far works magically - `(Commit Λ dict)[key]` needs `key ∈ (Commit Λ dict)[key]`
+  but the `dict` tactic silently discharges this.
   -/
   correct_consistent :
     ∀ {dict : Dict K M} {key : K} (h : key ∈ dict.keys), -- `(h : key ∈ dict.keys)` obtained from the paper's ∀k ∈ K
