@@ -48,4 +48,19 @@ axiom comutationallyInfeasible_axiom : ∀ {p : Prop}, ComputationallyInfeasible
 
 end RubeGoldberg
 
+namespace SimpleRandom
+/-
+TODO(REVIEW): This is beyond trivial on purpose, I am not really sure we even need this, maybe we can just
+              postulate that our 'random values' can be treated opaquely. Not sure. For now, I gave 'some',
+              clearly non-computational definition.
+-/
+
+def Seed : Type := ℕ
+
+def isRandom (f : Seed → α) (x : α) := ∃ seed, x = f seed
+
+scoped notation x "←ᵣ" f => isRandom f x
+
+end SimpleRandom
+
 end Intmax
