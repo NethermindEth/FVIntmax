@@ -1,0 +1,3 @@
+namespace Intmax
+
+end Intmax
