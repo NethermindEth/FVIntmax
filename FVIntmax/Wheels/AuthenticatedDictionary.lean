@@ -35,7 +35,7 @@ end CommitT
 Enables the notation:
 - `ct[k]'h`
 -/
-instance {C Pi} : GetElem (CommitT C K Pi) K Pi (λ ct k ↦ k ∈ ct.dict) := ⟨CommitT.lookup⟩
+instance : GetElem (CommitT C K Pi) K Pi (λ ct k ↦ k ∈ ct.dict) := ⟨CommitT.lookup⟩
 
 end CommitT
 
