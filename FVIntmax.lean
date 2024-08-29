@@ -5,3 +5,4 @@ import «FVIntmax».Wheels.SignatureAggregation
 import «FVIntmax».Wheels.Wheels
 
 import «FVIntmax».Account
+import «FVIntmax».Block
