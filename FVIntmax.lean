@@ -6,3 +6,5 @@ import «FVIntmax».Wheels.Wheels
 
 import «FVIntmax».Account
 import «FVIntmax».Block
+import «FVIntmax».RollupContract
+import «FVIntmax».TransactionBatch
