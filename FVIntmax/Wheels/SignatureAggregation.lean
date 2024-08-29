@@ -39,7 +39,7 @@ structure SignatureAggregation (M Kₚ Kₛ Sigma : Type) where
               for the time being is that the relationship between `kₚ` and `kₛ` is more explicit
               if `unzip` and `zip` are used.
   -/
-  Correctness : ∀ (l : List (Kₚ × Kₛ)) (h : ∀ pair ∈ l, pair ←ᵣ KeyGen Λ) (m : M), 
+  correctness : ∀ (l : List (Kₚ × Kₛ)) (h : ∀ pair ∈ l, pair ←ᵣ KeyGen Λ) (m : M), 
                   let (kₚs, kₛs) := l.unzip
                   Verify Λ kₚs m (Aggregate Λ (kₚs.zip (kₛs.map (Sign Λ · m)))) = true
 
@@ -51,7 +51,7 @@ structure SignatureAggregation (M Kₚ Kₛ Sigma : Type) where
                 but here I am assuming that every `Kₚ` has an associated `Kₛ` and I consider this pair
                 to be 'a user'.
   -/
-  Unforgeability :
+  unforgeability :
     ComputationallyInfeasible <|
       ∃ (k : List (Kₚ × Kₛ)) (m : M) (σ : Sigma),
         let kₚs := k.map Prod.fst
