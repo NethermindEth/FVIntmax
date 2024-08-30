@@ -2,6 +2,7 @@ import Mathlib.Data.Finmap
 
 namespace Intmax
 
+-- transfer (aggregator : K₁) (extradata : ByteArray) (commitment : C) (validUsers : K₂) (sigma : Sigma)
 /--
 2.4
 

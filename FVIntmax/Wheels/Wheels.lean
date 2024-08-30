@@ -63,4 +63,10 @@ scoped notation x "←ᵣ" f => isRandom f x
 
 end SimpleRandom
 
+section ByteArray
+
+deriving instance DecidableEq for ByteArray
+
+end ByteArray
+
 end Intmax
