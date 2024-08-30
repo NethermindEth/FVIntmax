@@ -1,6 +1,6 @@
 import Mathlib.Data.Finmap
 
-namespace IntMax
+namespace Intmax
 
 /--
 2.4
@@ -32,4 +32,4 @@ inductive Block (K₁ K₂ : Type) (C Sigma : Type)
   -/ 
   | withdraval (withdravals : Finmap (λ _ : K₁ ↦ {v : V // 0 ≤ v}))
 
-end IntMax
+end Intmax

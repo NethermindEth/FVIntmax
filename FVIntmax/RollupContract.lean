@@ -1,6 +1,6 @@
 import FVIntmax.Block
 
-namespace IntMax
+namespace Intmax
 
 section RollupContract
 
@@ -25,3 +25,5 @@ def initial (K₁ K₂ V : Type) [OfNat V 0] [LE V] (C Sigma : Type) : RollupSta
 end RollupState
 
 end RollupContract
+
+end Intmax
