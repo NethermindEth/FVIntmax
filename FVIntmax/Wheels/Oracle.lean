@@ -53,7 +53,7 @@ Random oracle function.
 NB this is only computable because the process of creating the initial oracle state is not.
 We are using `#1`.
 -/
-def hash (st : RandomOracle α ω) (x : α) : Option (ω × RandomOracle α ω) :=
+def RandomOracle.hash (st : RandomOracle α ω) (x : α) : Option (ω × RandomOracle α ω) :=
   match st.m.lookup x with
   | .some val => .some (val, st)
   | .none     => match st.availableCodomain with
