@@ -40,6 +40,11 @@ def deposit {K₁ K₂ C Sigma V : Type} [OfNat V 0] [LE V]
 
 end Depositing
 
+section Transferring
+
+
+
+end Transferring
 
 end RollupContract
 
