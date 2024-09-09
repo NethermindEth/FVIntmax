@@ -78,7 +78,7 @@ As such, we will prove properties for _valid transaction batches_ rather than fo
 NB as per usual, V does not need to be a latticed-ordered abelian group just yet.
 -/
 abbrev TransactionBatch (K₁ : Type) [Finite K₁] (K₂ : Type) [Finite K₂] (V : Type) :=
-  { m : Finmap (λ _ : Key K₁ K₂ ↦ V) // ∀ k ∈ Finset.univ (α := Key K₁ K₂), k ∈ m }
+  { m : Finmap (λ _ : Key K₁ K₂ ↦ V) // ∀ k, k ∈ m }
 
 /--
 A _valid transaction batch_ only contains nonnegative values of `V`.
@@ -95,9 +95,9 @@ is finite.
 -/
 noncomputable def univFinmap (K : Type) [Fintype K] [DecidableEq K]
                              (V : Type) [DecidableEq V] [Fintype V] :
-  { m : Finmap (λ _ : K ↦ V) // ∀ k ∈ Finset.univ (α := K), k ∈ m } ≃ (K → V) :=
+  { m : Finmap (λ _ : K ↦ V) // ∀ k, k ∈ m } ≃ (K → V) :=
   {
-    toFun := λ m k ↦ m.1.lookup_h (a := k) (m.2 k (Finset.mem_univ _))
+    toFun := λ m k ↦ m.1.lookup_h (a := k) (m.2 k)
     invFun := λ f ↦
       let fvals := { Sigma.mk x (f x) | x ∈ Finset.univ (α := K) }
       have : Fintype ↑fvals := by
@@ -105,7 +105,12 @@ noncomputable def univFinmap (K : Type) [Fintype K] [DecidableEq K]
         aesop
       ⟨⟨
         Multiset.ofList fvals.toFinset.toList,
-        by simp only [
+        by /-
+             We start with no duplicates in the universal set for `K` and
+             the production of pairs `(k : K × f k : V)` keeps them intact.
+             As such, there are no duplicate keys in the final map.
+           -/
+           simp only [
              Finset.mem_univ, true_and, Set.toFinset_setOf, Finset.univ_filter_exists,
              Finset.coe_toList, Finset.image_val, fvals
            ]
@@ -113,7 +118,12 @@ noncomputable def univFinmap (K : Type) [Fintype K] [DecidableEq K]
            have : (Finset.univ.val (α := K)).Nodup := Finset.nodup _
            rwa [Multiset.keys_dedup_map_pres_univ this (by simp)]
            ⟩,
-        by simp only [
+        by /-
+             We start with the universal set for `K`, which is complete by definiton.
+             Furthermore, we keep all `K`s and assign them values from the function's range.
+             This construction obviously preserves all keys.
+           -/
+           simp only [
              Finset.mem_univ, true_and, Set.toFinset_setOf, Finset.univ_filter_exists,
              Finset.coe_toList, Finset.image_val, true_implies, fvals
            ]

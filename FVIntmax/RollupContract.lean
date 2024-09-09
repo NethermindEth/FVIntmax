@@ -7,11 +7,7 @@ import FVIntmax.Block
 import FVIntmax.TransactionBatch
 import FVIntmax.Wheels
 
-import Mathlib
-
 namespace Intmax
-
-set_option autoImplicit false
 
 section RollupContract
 
@@ -67,39 +63,18 @@ Phase 1
 
 noncomputable def salt : UniquelyIndexed K₂ := default
 
+/--
+This is a corollary following from the way that `UniquelyIndexed` types are constructed.
+-/
+theorem salt_injective : Function.Injective (salt (K₂ := K₂)) := salt.injective
+
 noncomputable def salts : List K₂ → List (UniqueTokenT K₂) := List.map salt
 
 /--
 The only relevant property of salts.
 -/
-theorem injective_salts : Function.Injective (salts : List K₂ → List (UniqueTokenT K₂)) := by
-  unfold salts
-  rw [List.map_injective_iff]
-  exact salt.injective
-
-section Transaction
-
-variable [DecidableEq K₂]
-
-/--
-PAPER:
-- hₛ ← H(tₛ, saltₛ)
--/
-noncomputable def H : UniquelyIndexed (TransactionBatch K₁ K₂ V × UniqueTokenT K₂) := default
-
-theorem injective_H : Function.Injective (H (K₁ := K₁) (K₂ := K₂) (V := V)) := H.injective
-
-noncomputable def firstStep
-  (senders : List (K₂ × TransactionBatch K₁ K₂ V)) : List (UniqueTokenT (TransactionBatch K₁ K₂ V × UniqueTokenT K₂)) :=
-  let (users, batches) := senders.unzip
-  let salts := salts users
-  List.zipWith (Function.curry H) batches salts
-
-theorem injective_firstStep : Function.Injective (firstStep (K₁ := K₁) (K₂ := K₂) (V := V)) := by
-  unfold firstStep
-  simp [salts]; simp [Function.Injective]
-
-end Transaction
+theorem injective_salts : Function.Injective (salts (K₂ := K₂)) :=
+  List.map_injective_iff.2 salt.injective
 
 end Transferring
 
